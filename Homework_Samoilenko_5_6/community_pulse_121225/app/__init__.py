@@ -4,6 +4,7 @@ from flask import Flask
 from config import DevelopmentConfig, Config, TestConfig
 from app.routers.questions import questions_bp
 from app.routers.responses import responses_bp
+from app.routers.categories import categories_bp
 
 from app.models import db, Migrate
 
@@ -27,5 +28,6 @@ def create_app():
 
     app.register_blueprint(questions_bp, url_prefix='/questions')
     app.register_blueprint(responses_bp, url_prefix='/responses')
+    app.register_blueprint(categories_bp, url_prefix="/categories")
 
     return app
