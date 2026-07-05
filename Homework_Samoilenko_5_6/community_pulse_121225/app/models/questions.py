@@ -1,5 +1,5 @@
 from sqlalchemy.orm import relationship, Mapped, mapped_column
-from sqlalchemy import String
+from sqlalchemy import String, ForeignKey
 
 from app.models import db
 
@@ -10,6 +10,8 @@ class Question(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     text: Mapped[str] = mapped_column(String(100))
 
+    category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"), nullable=False)
+    category: Mapped["Category"] = relationship(back_populates="questions")
     statistics: Mapped['Statistics'] = relationship(back_populates='question', uselist=False, cascade='all, delete-orphan')
     responses: Mapped[list['Response']] = relationship(back_populates='question', cascade='all, delete-orphan')
 
